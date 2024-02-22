@@ -6,5 +6,21 @@ html {
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+  box-sizing: inherit; 
+}
+
+/* Para dispositivos con ancho máximo de 767px (típicamente teléfonos) */
+@media only screen and (max-width: 767px) {
+  /* Estilos para dispositivos móviles aquí */
+  
+}
+
+/* Para iPads y dispositivos con ancho mínimo de 768px y máximo de 1024px */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  /* Estilos para iPads aquí */
+}
+
+/* Para dispositivos con ancho mínimo de 1025px (escritorios) */
+@media only screen and (min-width: 1025px) {
+  /* Estilos para escritorios aquí */
 }
