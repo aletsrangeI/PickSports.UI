@@ -7,8 +7,12 @@ import {
   useRegisterNewUserMutation,
 } from "../../../store/apis/authApi";
 import { startRegister } from "../../../store/auth/thunks";
+import { checkingCredentials, logout } from "../../../store/auth/authSlice";
+import { useCheckIsChecking } from "../../../hooks";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
-const Register = () => {
+export const Register = () => {
   const {
     register,
     handleSubmit,
@@ -19,23 +23,44 @@ const Register = () => {
   const [registerNewUser, { isLoading, isError }] =
     useRegisterNewUserMutation();
 
-  const onSubmit = async (data) => {
-    if (!isValid) return;
+  const MySwal = withReactContent(Swal);
 
+  const onSubmit = async (data) => {
+    dispatch(checkingCredentials());
+
+    if (!isValid) return;
     try {
       data.token = "";
-      const response  = await registerNewUser(data);
-      if (!response.data.isSuccess)
-        alert(`Error al crear usuario: ${response.message}`);
+      const response = await registerNewUser(data);
+      if (!response.data.isSuccess) {
 
+        MySwal.fire({
+          title: <p>Error</p>,
+          icon: "error",
+          text: "Hubo un problema al crear un usuario",
+          confirmButtonColor: "#c0ff30",
+          confirmButtonText: "Ok",
+        });
+        
+        dispatch(logout());
+      }
       dispatch(startRegister(response.data));
     } catch (error) {
-      // Aquí puedes manejar el error del registro
+      dispatch(logout());
+
+      MySwal.fire({
+        title: <p>Error</p>,
+        icon: "error",
+        text: "Hubo un problema al crear un usuario",
+      });
     }
   };
 
   const { nombres, apellidos, email, password, confirmPassword } = errors;
   const passwordActualValue = watch("password");
+
+  const isChecking = useCheckIsChecking();
+
   return (
     <div className="wrapper">
       <h2>Registro</h2>
@@ -88,7 +113,7 @@ const Register = () => {
               },
             })}
             id="email"
-            placeholder="Enter email"
+            placeholder="Email"
           />
           {email !== undefined && <h3>{email.message}</h3>}
         </div>
@@ -123,17 +148,21 @@ const Register = () => {
           {confirmPassword !== undefined && <h3>{confirmPassword.message}</h3>}
         </div>
 
-        <div className="policy">
-          <input type="checkbox" name="policy" id="policy" />
-          <h3>Acepto los terminos de servicio</h3>
-        </div>
-
-        <div className="input-box button">
-          <input type="submit" value={"Registrarse ahora"} />
-        </div>
+        {isChecking ? (
+          <div className="container-loader">
+            <div className="lds-ellipsis">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        ) : (
+          <div className="input-box button">
+            <input type="submit" value={"Registrarse ahora"} />
+          </div>
+        )}
       </form>
     </div>
   );
 };
-
-export default Register;

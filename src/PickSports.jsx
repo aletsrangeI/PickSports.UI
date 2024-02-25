@@ -1,9 +1,9 @@
 import AppRouter from "./router/AppRouter";
 
-function App() {
+function PickSports() {
     return(
         <AppRouter/>
     );
 }
 
-export default App;
+export default PickSports;

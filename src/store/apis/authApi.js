@@ -14,7 +14,18 @@ export const authApi = createApi({
         },
       }),
     }),
+
+    login: builder.mutation({
+      query: (payload) => ({
+        url: "api/Users/Authenticate",
+        method: "POST",
+        body: payload,
+        header: {
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
   }),
 });
 
-export const { useRegisterNewUserMutation } = authApi;
+export const { useRegisterNewUserMutation, useLoginMutation } = authApi;

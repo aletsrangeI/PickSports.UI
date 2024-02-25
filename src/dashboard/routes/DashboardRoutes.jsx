@@ -1,10 +1,10 @@
-import { Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { DashboardPage } from "../pages";
 
 export const DashboardRoutes = () => {
   return (
     <Routes>
-        <Route path="/" element={<DashboardPage/>}/>
+        <Route path="main" element={<DashboardPage/>}/>
     </Routes>
   );
 };
