@@ -6,7 +6,6 @@ import {
   changingMiniSideBar,
   changingTheme,
 } from "../../store/ui/thunks";
-import { toggleMaxSideBar } from "../../store/ui/uiSlice";
 
 export const SideBar = () => {
   const dispatch = useDispatch();
@@ -16,6 +15,7 @@ export const SideBar = () => {
     isMiniSidebar: state.ui.miniSideBar,
     isMaxSidebar: state.ui.maxSideBar,
   }));
+  const innerWidth = window.innerWidth <= 400 ? true : false;
 
   const toggleMiniSidebar = () => {
     dispatch(changingMiniSideBar(!isMiniSidebar));
@@ -40,9 +40,10 @@ export const SideBar = () => {
         ></ion-icon>
       </div>
       <div
-        className={`barra-lateral ${
-          isMiniSidebar ? "mini-barra-lateral" : ""
-        } ${isMaxSidebar ? "max-barra-lateral" : ""}`}
+        className={`barra-lateral 
+        ${isMiniSidebar || innerWidth ? "mini-barra-lateral" : ""} 
+        ${isMaxSidebar ? "max-barra-lateral" : ""}
+        `}
       >
         <div>
           <div className="nombre-pagina">
@@ -51,13 +52,19 @@ export const SideBar = () => {
               id="logo"
               name="american-football-outline"
             ></ion-icon>
-            <span className={`${isMiniSidebar ? "oculto" : ""}`} id="pageName">
+            <span
+              className={`
+            ${isMiniSidebar || innerWidth ? "oculto" : ""}`}
+              id="pageName"
+            >
               PickSports
             </span>
           </div>
           <button className="boton">
             <ion-icon name="add-outline"></ion-icon>
-            <span className={`${isMiniSidebar ? "oculto" : ""}`}>Nueva</span>
+            <span className={`${isMiniSidebar || innerWidth ? "oculto" : ""}`}>
+              Nueva
+            </span>
           </button>
         </div>
         <nav className="navegacion">
@@ -65,7 +72,9 @@ export const SideBar = () => {
             <li>
               <a href="">
                 <ion-icon name="settings-outline"></ion-icon>
-                <span className={`${isMiniSidebar ? "oculto" : ""}`}>
+                <span
+                  className={`${isMiniSidebar || innerWidth ? "oculto" : ""}`}
+                >
                   Config
                 </span>
               </a>
@@ -78,7 +87,9 @@ export const SideBar = () => {
           <div className="modo-oscuro">
             <div className="info">
               <ion-icon name="moon-outline"></ion-icon>
-              <span className={`${isMiniSidebar ? "oculto" : ""}`}>
+              <span
+                className={`${isMiniSidebar || innerWidth ? "oculto" : ""}`}
+              >
                 dark mode
               </span>
             </div>
@@ -94,10 +105,18 @@ export const SideBar = () => {
             <img src={image} alt="" />
             <div className="info-usuario">
               <div className="nombre-email">
-                <span className={`nombre ${isMiniSidebar ? "oculto" : ""}`}>
+                <span
+                  className={`nombre ${
+                    isMiniSidebar || innerWidth ? "oculto" : ""
+                  }`}
+                >
                   {nombres}
                 </span>
-                <span className={`email ${isMiniSidebar ? "oculto" : ""}`}>
+                <span
+                  className={`email ${
+                    isMiniSidebar || innerWidth ? "oculto" : ""
+                  }`}
+                >
                   {nombres.toLowerCase().replace(" ", ".")}@example.com
                 </span>
               </div>
