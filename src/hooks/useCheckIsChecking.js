@@ -11,9 +11,9 @@ export const useCheckIsChecking = () => {
   useEffect(() => {
     // Verificar si el estado de autenticación es igual a "authenticated"
     if (authStatus === "checking") {
-        setChecking(true);
+      setChecking(true);
     } else {
-        setChecking(false);
+      setChecking(false);
     }
   }, [authStatus]); // Se ejecutará cada vez que cambie authStatus
 

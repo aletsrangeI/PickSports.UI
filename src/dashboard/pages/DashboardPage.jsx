@@ -1,7 +1,14 @@
+import "../../styles/styles.css";
+import { DashboardLayout } from "../layout";
+import "./../components/sidebar.css";
+
 export const DashboardPage = () => {
   return (
-    <div>
-      <h1>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>
-    </div>
+    <>
+      <DashboardLayout />
+      <main>
+        <h1>AAA</h1>
+      </main>
+    </>
   );
 };
