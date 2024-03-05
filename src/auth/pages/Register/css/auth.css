@@ -13,13 +13,14 @@
   background: #c0ff30;
 }
 .wrapper {
-  position: relative;
+  position: fixed;
   max-width: 430px;
   width: 100%;
   background: #fff;
   padding: 34px;
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 .wrapper h2 {
   position: relative;
@@ -159,5 +160,23 @@ form .text h3 a:hover {
   }
   100% {
     transform: translate(24px, 0);
+  }
+}
+
+/* Para dispositivos con ancho máximo de 767px (típicamente teléfonos) */
+@media (max-width: 767px) {
+  .wrapper {
+    margin: 15px;
+    max-width: 350px;
+    transition: all 0.3s ease;
+  }
+}
+
+@media (max-height: 340px) {
+  .wrapper {
+    margin-bottom: 15px;
+    max-width: 350px;
+    max-height: 250px;
+    transition: all 0.3s ease;
   }
 }
